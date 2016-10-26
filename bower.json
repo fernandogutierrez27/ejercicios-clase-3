@@ -1,0 +1,25 @@
+{
+  "name": "ejercicios-clase-3",
+  "authors": [
+    "Fernando Gutierrez <fernando.gutierrez@live.cl>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "^1.7.0",
+    "paper-input": "PolymerElements/paper-input#^1.1.20",
+    "paper-card": "PolymerElements/paper-card#^1.1.4",
+    "paper-button": "Polymerelements/paper-button#^1.0.14",
+    "iron-icons": "Polymerelements/iron-icons#^1.1.3",
+    "paper-icon-button": "Polymerelements/paper-icon-button#^1.1.3"
+  }
+}

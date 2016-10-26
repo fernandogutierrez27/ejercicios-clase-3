@@ -1,0 +1,87 @@
+<link rel="import" href="validar-claves-iguales.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+
+<dom-module id="componente-padre">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+			
+			.coincidencia {
+				text-align: center;
+			}
+			
+			.button-container {
+				text-align: center;
+				padding-bottom: 1em;
+			}
+			
+			paper-button {
+				background-color: var(--paper-indigo-500);
+				color: white;
+			}
+
+            paper-button.reset {
+                background-color: red;
+            }
+                
+			
+			paper-button[disabled] {
+			    background: #eaeaea;
+				color: #a8a8a8;
+				cursor: auto;
+				pointer-events: none;
+				@apply(--paper-button-disabled);
+			}
+		</style>
+
+		<paper-card heading="" image="" elevation="1" animated-shadow="false">
+			<div class="card-content">
+				<validar-claves-iguales coincidencia="{{coincidencia}}" id="claves"></validar-claves-iguales>
+			</div>
+			<div class="coincidencia">
+				<p hidden=[[mostrarCoincidencia]]>Coincidencia: [[coincidencia]]</p>
+			</div>
+			<div class="button-container">
+				<paper-button raised disabled=[[mostrarCoincidencia]]>Enviar
+					<iron-icon icon="check-circle"></iron-icon>
+				</paper-button>
+                <paper-button raised class="reset" on-tap="limpiarCampos">Reset
+					<iron-icon icon="clear"></iron-icon>
+				</paper-button>
+			</div>
+		</paper-card>
+	</template>
+	<script>
+        Polymer({
+            is: 'componente-padre',
+
+            properties: {
+                coincidencia: {
+                    type: String
+                },
+                mostrarCoincidencia: {
+                    type: Boolean,
+                    computed: 'computar(coincidencia)'
+                }
+            },
+            computar: function(c) {
+                    if (c == '') return true;
+                    return false;
+            },
+            limpiarCampos: function() {
+                this.$.claves.restaurarClaves();
+            /**
+                Una alternativa era esta:
+                    this.$.claves.claveUno = '';
+                    this.$.claves.claveDos = '';
+                Pero para mantener una mejor encapsulación,
+                decidí implementar el método en el componente validar-claves-iguales
+            **/
+            }
+        });
+    </script>
+</dom-module>

@@ -1,0 +1,61 @@
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+
+<dom-module id="validar-claves-iguales">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+		<paper-card heading="Ingreso de Claves" image="" elevation="0" animated-shadow="false">
+			<div class="card-content">
+				<paper-input label="Clave 1" value="{{claveUno}}" type="password"></paper-input>
+				<paper-input label="Clave 2" value="{{claveDos}}" type="password"></paper-input>
+			</div>
+		</paper-card>
+
+	</template>
+	<script>
+        Polymer({
+            is: 'validar-claves-iguales',
+
+            properties: {
+                claveUno: String,
+                claveDos: String,
+                coincidencia: {
+                    type: String,
+                    notify: true,
+                    readOnly: true
+                }                 
+            },
+
+            observers: ['_compararClaves(claveUno, claveDos)'],
+
+            _compararClaves: function (c1,c2,c) {
+                // console.log("comparando claves");
+                if ((c1 == c2) && c1.length >= 6) {
+                    this._setCoincidencia(c1);
+                /**
+                    Al tener la propiedad readOnly, solo permite actualizar el valor de esta manera,
+                    me fue imposible actualizar con this.coincidencia = c1;
+                                        
+                    console.log(this.coincidencia);
+                **/
+                } else {
+                /**
+                    Agrego esta línea para que si las entradas son diferentes, no muestre nada en el componente padre.
+                    Para la primera parte del ejercicio, queda a gusto del consumidor. Para la segunda, se vuelve una
+                    opción viable.
+                **/
+                    this._setCoincidencia('');
+                }
+            },
+
+            restaurarClaves: function() {
+                this.claveUno = '';
+                this.claveDos = '';
+            }
+        });
+    </script>
+</dom-module>
